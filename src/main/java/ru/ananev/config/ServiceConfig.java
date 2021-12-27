@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(value = "ru.ananev.repository")
-@EntityScan(value = "ru.golovnev.entity")
+@EntityScan(value = "ru.ananev.entity")
 public class ServiceConfig {
 }
