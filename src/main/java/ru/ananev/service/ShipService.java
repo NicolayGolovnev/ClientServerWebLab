@@ -2,6 +2,7 @@ package ru.ananev.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ananev.entity.CompanyPark;
@@ -9,6 +10,7 @@ import ru.ananev.entity.Ship;
 import ru.ananev.repository.CompanyParkRepository;
 import ru.ananev.repository.ShipRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,6 +70,18 @@ public class ShipService {
         }
         else
             throw new RuntimeException("Судно с ID = " + shipID + " не существует");
+    }
+
+    /**
+     * Метод поиска всех записей судов
+     *
+     * @return список судов
+     */
+    @Transactional
+    public List<Ship> findAll() {
+        List<Ship> ships = shipRepository.findAll(Sort.by("id"));
+        log.info("FIND ALL SHIPS METHOD DONE");
+        return ships;
     }
 
 }

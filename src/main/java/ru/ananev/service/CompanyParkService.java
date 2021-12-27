@@ -2,11 +2,13 @@ package ru.ananev.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ananev.entity.CompanyPark;
 import ru.ananev.repository.CompanyParkRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,6 +64,18 @@ public class CompanyParkService {
         }
         else
             throw new RuntimeException("Парк c ID" + companyParkID + " не существует");
+    }
+
+    /**
+     * Метод поиска всех записей парков
+     *
+     * @return список парков
+     */
+    @Transactional
+    public List<CompanyPark> findAll() {
+        List<CompanyPark> companyParks = companyParkRepository.findAll(Sort.by("id"));
+        log.info("FIND ALL PARKS METHOD DONE");
+        return companyParks;
     }
 
 }
