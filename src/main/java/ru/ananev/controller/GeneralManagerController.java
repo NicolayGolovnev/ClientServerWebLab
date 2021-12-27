@@ -44,10 +44,10 @@ public class GeneralManagerController {
      */
     @PostMapping("/create_route")
     public ModelAndView createRoute(Route route) {
-        log.info("POST - /general_manager/add_route\tENTERED CREATE ROUTE METHOD");
+        log.info("POST - /general_manager/create_route\tENTERED CREATE ROUTE METHOD");
         routeService.save(route);
         log.info("CREATION COMPLETED\tREDIRECTING TO MAIN PAGE");
-        return new ModelAndView("redirect:/general/manager_main_page");
+        return new ModelAndView("redirect:/general_manager/main_page");
     }
 
     /**
@@ -61,7 +61,7 @@ public class GeneralManagerController {
         log.info("POST - /general_manager/update_route\tENTERED UPDATE ROUTE METHOD");
         routeService.update(route);
         log.info("UPDATING COMPLETED\tREDIRECTING TO MAIN PAGE");
-        return new ModelAndView("redirect:/general/manager_main_page");
+        return new ModelAndView("redirect:/general_manager/main_page");
     }
 
     /**
@@ -75,7 +75,7 @@ public class GeneralManagerController {
         log.info("GET - /general_manager/delete_route/" + id + "\tENTERED DELETE ROUTE METHOD");
         routeService.delete(id);
         log.info("DELETE COMPLETED\tREDIRECTING TO MAIN PAGE");
-        return new ModelAndView("redirect:/general/manager_main_page");
+        return new ModelAndView("redirect:/general_manager/main_page");
     }
 
     /**
