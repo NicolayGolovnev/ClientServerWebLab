@@ -10,7 +10,10 @@ import ru.ananev.repository.DocumentNotesRepository;
 import ru.ananev.repository.OrderRepository;
 import ru.ananev.repository.TransportationDocumentRepository;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -92,6 +95,19 @@ public class DocumentNotesService {
         var order = orderRepository.findById(documentNotes.getOrder().getId());
         if (!order.isPresent())
             throw new RuntimeException("Заказ с ID = " + documentNotes.getOrder().getId() + " не найден");
+    }
+
+    /**
+     * Метод поиска всех строк документа для документа
+     *
+     * @param docID ID документа о перевозке
+     * @return список строк документа
+     */
+    public List<DocumentNotes> findAllByDocumentID(Long docID) {
+        List<DocumentNotes> documentNotes = documentNotesRepository.findAllByDocumentId(docID).stream()
+                .sorted(Comparator.comparingLong(DocumentNotes::getId)).collect(Collectors.toList());
+        log.info("FIND ALL DOCUMENT NOTES FOR TRANSPORTATION DOCUMENT WITH ID " + docID + " METHOD DONE");
+        return documentNotes;
     }
 
 }

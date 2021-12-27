@@ -2,6 +2,7 @@ package ru.ananev.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ananev.entity.Route;
@@ -11,6 +12,7 @@ import ru.ananev.repository.RouteRepository;
 import ru.ananev.repository.ShipRepository;
 import ru.ananev.repository.TransportationDocumentRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -93,6 +95,18 @@ public class TransportationDocumentService {
         Optional<Route> route = routeRepository.findById(transportationDocument.getRoute().getId());
         if (!route.isPresent())
             throw new RuntimeException("Маршрут с ID = " + transportationDocument.getRoute().getId() + "не найден");
+    }
+
+    /**
+     * Метод поиска всех документов о перевозке
+     *
+     * @return список документов о перевозке
+     */
+    @Transactional
+    public List<TransportationDocument> findAll() {
+        List<TransportationDocument> transportationDocuments = transportationDocumentRepository.findAll(Sort.by("id"));
+        log.info("FIND ALL TRANSPORTATION DOCUMENTS METHOD DONE");
+        return transportationDocuments;
     }
 
 }
