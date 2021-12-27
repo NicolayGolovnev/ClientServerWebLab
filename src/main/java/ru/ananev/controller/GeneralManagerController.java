@@ -96,7 +96,7 @@ public class GeneralManagerController {
      * Метод обработки запроса на добавление последовательности
      *
      * @param sequenceRoute последовательность
-     * @return редирект на главную страницу главного менеджера
+     * @return редирект на страницу маршрута
      */
     @PostMapping("/route/create_sequence")
     public ModelAndView createSequence(SequenceRoute sequenceRoute) {
@@ -110,7 +110,7 @@ public class GeneralManagerController {
      * Метод обработки запроса на обновление последовательности
      *
      * @param sequenceRoute последовательность
-     * @return редирект на главную страницу главного менеджера
+     * @return редирект на страницу маршрута
      */
     @PostMapping("/route/update_sequence")
     public ModelAndView updateSequence(SequenceRoute sequenceRoute) {
@@ -124,7 +124,7 @@ public class GeneralManagerController {
      * Метод обработки запроса на удаление последовательности
      *
      * @param sequenceRoute последовательность
-     * @return редирект на главную страницу главного менеджера
+     * @return редирект на страницу маршрута
      */
     @PostMapping("/route/delete_sequence")
     public ModelAndView deleteSequence(SequenceRoute sequenceRoute) {
