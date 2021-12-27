@@ -2,11 +2,14 @@ package ru.ananev.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ananev.entity.Route;
+import ru.ananev.entity.Ship;
 import ru.ananev.repository.RouteRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,6 +64,18 @@ public class RouteService {
         }
         else
             throw new RuntimeException("Маршрут с ID = " + routeID + " не найден");
+    }
+
+    /**
+     * Метод поиска всех записей маршрутов
+     *
+     * @return список маршрутов
+     */
+    @Transactional
+    public List<Route> findAll() {
+        List<Route> routes = routeRepository.findAll(Sort.by("id"));
+        log.info("FIND ALL ROUTES METHOD DONE");
+        return routes;
     }
 
 }

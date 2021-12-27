@@ -11,7 +11,10 @@ import ru.ananev.repository.PointRepository;
 import ru.ananev.repository.RouteRepository;
 import ru.ananev.repository.SequenceRouteRepository;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -95,6 +98,19 @@ public class SequenceRouteService {
         if (sequenceRoute.getArrivalDate().after(sequenceRoute.getDispatchDate()))
             throw new RuntimeException("Время прибытия не может быть позже времени отправки");
 
+    }
+
+    /**
+     * Метод поиска всех записей последовательностей для маршрута
+     *
+     * @param routeID ID маршрута
+     * @return список последовательностей
+     */
+    public List<SequenceRoute> findAllByRouteID(Long routeID) {
+        List<SequenceRoute> sequenceRoutes = sequenceRouteRepository.findAllByRouteId(routeID).stream()
+                .sorted(Comparator.comparingLong(SequenceRoute::getId)).collect(Collectors.toList());
+        log.info("FIND ALL SEQUENCES FOR ROUTE WITH ID " + routeID + " METHOD DONE");
+        return sequenceRoutes;
     }
 
 }
