@@ -107,4 +107,13 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    public Order findById(long id) {
+        Optional<Order> order = orderRepository.findById(id);
+        if (order.isPresent()) {
+            log.info("FIND ORDER BY ID METHOD DONE");
+            return order.get();
+        }
+        return null;
+    }
+
 }
