@@ -3,13 +3,16 @@ package ru.ananev.service;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.ananev.entity.CompanyPark;
 import ru.ananev.entity.Order;
 import ru.ananev.repository.CustomerRepository;
 import ru.ananev.repository.OrderRepository;
 import ru.ananev.repository.PointRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -101,6 +104,27 @@ public class OrderService {
                     + order.getPointArrival().getLocation());
         if (order.getDepartureDate().after(order.getArrivalDate()))
             throw new RuntimeException("Время прибытия не может быть позже времени отправки");
+    }
+
+    /**
+     * Метод поиска всех записей заказов
+     *
+     * @return список заказов
+     */
+    @Transactional
+    public List<Order> findAll() {
+        List<Order> orderList = orderRepository.findAll(Sort.by("id"));
+        log.info("FIND ALL ORDERS METHOD DONE");
+        return orderList;
+    }
+
+    public Order findById(long id) {
+        Optional<Order> order = orderRepository.findById(id);
+        if (order.isPresent()) {
+            log.info("FIND ORDER BY ID METHOD DONE");
+            return order.get();
+        }
+        return null;
     }
 
 }

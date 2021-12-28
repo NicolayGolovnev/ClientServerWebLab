@@ -9,7 +9,10 @@ import ru.ananev.entity.PaymentNote;
 import ru.ananev.repository.OrderRepository;
 import ru.ananev.repository.PaymentNoteRepository;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -67,4 +70,10 @@ public class PaymentNoteService {
             throw new RuntimeException("Запись об оплате заказа с ID = " + paymentNoteID + " не существует");
     }
 
+    public List<PaymentNote> findAllByOrderId(long orderId) {
+        List<PaymentNote> paymentNotes = paymentNoteRepository.findAllByOrderId(orderId).stream()
+                .sorted(Comparator.comparingLong(PaymentNote::getId)).collect(Collectors.toList());
+        log.info("FIND ALL PAYMENT NOTES FOR ORDER WITH ID " + orderId + " METHOD DONE");
+        return paymentNotes;
+    }
 }

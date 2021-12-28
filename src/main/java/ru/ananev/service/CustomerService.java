@@ -2,11 +2,14 @@ package ru.ananev.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ananev.entity.Customer;
+import ru.ananev.entity.Order;
 import ru.ananev.repository.CustomerRepository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -61,6 +64,18 @@ public class CustomerService {
             log.info("CUSTOMER WITH ID " + customerID + "DELETED");
         } else
             throw new RuntimeException("Парк c ID" + customerID + " не существует");
+    }
+
+    /**
+     * Метод поиска всех записей заказчиков
+     *
+     * @return список заказчиков
+     */
+    @Transactional
+    public List<Customer> findAll() {
+        List<Customer> customerList = customerRepository.findAll(Sort.by("id"));
+        log.info("FIND ALL CUSTOMERS METHOD DONE");
+        return customerList;
     }
 
 }
