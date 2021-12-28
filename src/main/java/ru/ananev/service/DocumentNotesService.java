@@ -109,4 +109,12 @@ public class DocumentNotesService {
         return documentNotes;
     }
 
+    public DocumentNotes findById(Long id) {
+        Optional<DocumentNotes> note = documentNotesRepository.findById(id);
+        if (note.isPresent())
+            return note.get();
+        else
+            throw new RuntimeException("DocumentNote[id = " + id + "] not found");
+    }
+
 }

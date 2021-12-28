@@ -81,6 +81,11 @@ public class DirectorController {
         return new ModelAndView("redirect:/director/main_page");
     }
 
+    @GetMapping("/create_ship")
+    public ModelAndView newAgent(@ModelAttribute("shipForm") Ship ship) {
+        return new ModelAndView("/director/create_ship");
+    }
+
     /**
      * Метод обработки запроса на добавление судна
      *
@@ -90,6 +95,7 @@ public class DirectorController {
     @PostMapping("/create_ship")
     public ModelAndView createShip(Ship ship) {
         log.info("POST - /director/add_ship\tENTERED CREATE SHIP METHOD");
+        ship.setPark(companyParkService.findAll().get(0));
         shipService.save(ship);
         log.info("CREATION COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/director/main_page");
@@ -130,5 +136,4 @@ public class DirectorController {
         log.info("DELETE COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/director/main_page");
     }
-
 }

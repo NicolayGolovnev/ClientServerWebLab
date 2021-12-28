@@ -1,15 +1,15 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: kolya
   Date: 28.12.2021
-  Time: 18:11
+  Time: 22:24
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Рабочее место Директора</title>
+    <title>Title</title>
 </head>
 <body>
 <div class="top">
@@ -32,13 +32,10 @@
             <td align="center">${ship.price}</td>
             <td align="center">${ship.state}</td>
             <td align="center">${ship.park.name}</td>
-            <td width="auto"><button type="button" onclick="location.href='/director/ship_update/${ship.id}'">Изменить</button></td>
-            <td width="auto"><button type="button" onclick="location.href='/director/ship_delete/${ship.id}'">Удалить</button></td>
         </tr>
     </c:forEach>
 </table>
 <hr/>
-<button type="button" onclick="location.href='/director/create_ship'">Добавить корабль в парк</button>
-<button type="button" onclick="location.href='/'">Вернуться</button>
+<button type="button" onclick="location.href='/manager/main_page'">Вернуться</button>
 </body>
 </html>

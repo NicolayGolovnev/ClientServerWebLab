@@ -9,6 +9,7 @@ import ru.ananev.repository.CustomerRepository;
 import ru.ananev.repository.OrderRepository;
 import ru.ananev.repository.PointRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -100,6 +101,10 @@ public class OrderService {
                     + order.getPointArrival().getLocation());
         if (order.getDepartureDate().after(order.getArrivalDate()))
             throw new RuntimeException("Время прибытия не может быть позже времени отправки");
+    }
+
+    public List<Order> findAll() {
+        return orderRepository.findAll();
     }
 
 }
