@@ -11,11 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Customer")
+@Table(name = "customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_customer")
+    @Column(name = "id_customer")
     private Long id;
 
     @Column(name = "first_name")
@@ -31,7 +31,7 @@ public class Customer {
     private String passport;
 
     @OneToMany(targetEntity = Order.class)
-    @JoinColumn(name = "ID_customer")
+    @JoinColumn(name = "id_customer")
     List<Order> orders;
 
 }

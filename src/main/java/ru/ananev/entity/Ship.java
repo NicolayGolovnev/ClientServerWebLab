@@ -11,11 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Ship")
+@Table(name = "ship")
 public class Ship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_ship")
+    @Column(name = "id_ship")
     private Long id;
 
     @Column(name = "lifting_capacity")
@@ -31,10 +31,10 @@ public class Ship {
     private String state;
 
     @OneToMany(targetEntity = TransportationDocument.class)
-    @JoinColumn(name = "ID_ship")
+    @JoinColumn(name = "id_ship")
     private List<TransportationDocument> documents;
 
     @ManyToOne()
-    @JoinColumn(name = "ID_park", nullable = false)
+    @JoinColumn(name = "id_park", nullable = false)
     private CompanyPark park;
 }

@@ -13,7 +13,7 @@ import ru.ananev.service.ShipService;
 import java.util.List;
 
 @RestController
-@RequestMapping("director")
+@RequestMapping("/director")
 @Slf4j
 public class DirectorController {
 
@@ -30,7 +30,7 @@ public class DirectorController {
      */
     @GetMapping("/main_page")
     public ModelAndView loadMainPage() {
-        ModelAndView modelAndView = new ModelAndView("director_main_page");
+        ModelAndView modelAndView = new ModelAndView("/director/main_page");
         List<CompanyPark> companyParkList = companyParkService.findAll();
         List<Ship> shipList = shipService.findAll();
         modelAndView.addObject("companyParkList", companyParkList);
