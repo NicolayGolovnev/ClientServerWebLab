@@ -84,4 +84,13 @@ public class ShipService {
         return ships;
     }
 
+    @Transactional
+    public Ship findById(Long id) {
+        Optional<Ship> ship = shipRepository.findById(id);
+        if (ship.isPresent())
+            return ship.get();
+        else
+            throw new RuntimeException("Ship[id = " + id +"] not found");
+    }
+
 }

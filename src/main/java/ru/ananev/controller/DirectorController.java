@@ -95,15 +95,23 @@ public class DirectorController {
         return new ModelAndView("redirect:/director/main_page");
     }
 
+    @GetMapping("/ship_update/{id}")
+    public ModelAndView update(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("/director/update_ship");
+        Ship ship = shipService.findById(id);
+        mv.addObject("ship", ship);
+        return mv;
+    }
+
     /**
      * Метод обработки запроса на обновления судна
      *
      * @param ship судно
      * @return редирект на главную страницу директора
      */
-    @PostMapping("/update_ship")
+    @PostMapping("/ship_update")
     public ModelAndView updateShip(Ship ship) {
-        log.info("POST - /director/update_ship\tENTERED UPDATE SHIP METHOD");
+        log.info("POST - /director/update\tENTERED UPDATE SHIP METHOD");
         shipService.update(ship);
         log.info("UPDATING COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/director/main_page");
@@ -115,7 +123,7 @@ public class DirectorController {
      * @param id ID судна
      * @return редирект на главную страницу директора
      */
-    @GetMapping("/delete_ship/{id}")
+    @GetMapping("/ship_delete/{id}")
     public ModelAndView deleteShip(@PathVariable("id") long id) {
         log.info("GET - /director/delete_ship/" + id + "\tENTERED DELETE SHIP METHOD");
         shipService.delete(id);
