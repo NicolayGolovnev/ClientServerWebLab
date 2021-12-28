@@ -11,11 +11,11 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "Sequence_route")
+@Table(name = "sequence_route")
 public class SequenceRoute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_sequence")
+    @Column(name = "id_sequence")
     private Long id;
 
     @Column(name = "order_number")
@@ -28,10 +28,10 @@ public class SequenceRoute {
     private Date dispatchDate;
 
     @ManyToOne
-    @JoinColumn(name = "ID_point", nullable = false)
+    @JoinColumn(name = "id_point", nullable = false)
     private Point point;
 
     @ManyToOne
-    @JoinColumn(name = "ID_route", nullable = false)
+    @JoinColumn(name = "id_route", nullable = false)
     private Route route;
 }

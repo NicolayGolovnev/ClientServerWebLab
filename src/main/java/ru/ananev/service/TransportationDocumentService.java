@@ -109,4 +109,12 @@ public class TransportationDocumentService {
         return transportationDocuments;
     }
 
+    @Transactional
+    public TransportationDocument findById(Long id) {
+        Optional<TransportationDocument> document = transportationDocumentRepository.findById(id);
+        if (document.isPresent())
+            return document.get();
+        else
+            throw new RuntimeException("Document[id = " + id + "not found");
+    }
 }

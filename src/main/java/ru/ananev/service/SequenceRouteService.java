@@ -1,11 +1,9 @@
 package ru.ananev.service;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.ananev.entity.Route;
 import ru.ananev.entity.SequenceRoute;
 import ru.ananev.repository.PointRepository;
 import ru.ananev.repository.RouteRepository;

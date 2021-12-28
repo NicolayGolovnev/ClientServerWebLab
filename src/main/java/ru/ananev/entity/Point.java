@@ -11,25 +11,25 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Point")
+@Table(name = "point")
 public class Point {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_point")
+    @Column(name = "id_point")
     private Long id;
 
     @Column(name = "location")
     private String location;
 
     @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_point_departure")
+    @JoinColumn(name = "id_point_departure")
     List<Order> departureOrders;
 
     @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_point_arrival")
+    @JoinColumn(name = "id_point_arrival")
     List<Order> arrivalOrders;
 
     @OneToMany(targetEntity = SequenceRoute.class)
-    @JoinColumn(name = "ID_sequence")
+    @JoinColumn(name = "id_sequence")
     List<SequenceRoute> routes;
 }

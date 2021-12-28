@@ -12,11 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "COrder")
+@Table(name = "corder")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_customer")
+    @Column(name = "id_order")
     private Long id;
 
     @Column(name = "departure_date")
@@ -35,22 +35,22 @@ public class Order {
     private int costDelivery;
 
     @ManyToOne
-    @JoinColumn(name = "ID_customer", nullable = false)
+    @JoinColumn(name = "id_customer", nullable = false)
     Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "ID_point_departure", nullable = false)
+    @JoinColumn(name = "id_point_departure", nullable = false)
     Point pointDeparture;
 
     @ManyToOne
-    @JoinColumn(name = "ID_point_arrival", nullable = false)
+    @JoinColumn(name = "id_point_arrival", nullable = false)
     Point pointArrival;
 
     @OneToMany(targetEntity = PaymentNote.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "ID_order")
+    @JoinColumn(name = "id_order")
     List<PaymentNote> paymentNotes;
 
     @OneToOne(targetEntity = DocumentNotes.class)
-    @JoinColumn(name = "ID_order")
+    @JoinColumn(name = "id_order")
     private DocumentNotes documentNote;
 }

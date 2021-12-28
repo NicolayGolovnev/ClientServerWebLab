@@ -1,7 +1,6 @@
 package ru.ananev.service;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -108,6 +107,14 @@ public class DocumentNotesService {
                 .sorted(Comparator.comparingLong(DocumentNotes::getId)).collect(Collectors.toList());
         log.info("FIND ALL DOCUMENT NOTES FOR TRANSPORTATION DOCUMENT WITH ID " + docID + " METHOD DONE");
         return documentNotes;
+    }
+
+    public DocumentNotes findById(Long id) {
+        Optional<DocumentNotes> note = documentNotesRepository.findById(id);
+        if (note.isPresent())
+            return note.get();
+        else
+            throw new RuntimeException("DocumentNote[id = " + id + "] not found");
     }
 
 }

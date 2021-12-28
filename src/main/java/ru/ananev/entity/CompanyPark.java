@@ -11,17 +11,17 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "Company_park")
+@Table(name = "company_park")
 public class CompanyPark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_park")
+    @Column(name = "id_park")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
     @OneToMany(targetEntity = Ship.class)
-    @JoinColumn(name = "ID_park")
+    @JoinColumn(name = "id_park")
     List<Ship> ships;
 }

@@ -11,11 +11,11 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "Payment_note")
+@Table(name = "payment_note")
 public class PaymentNote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_note")
+    @Column(name = "id_note")
     private Long id;
 
     @Column(name = "payment")
@@ -25,6 +25,6 @@ public class PaymentNote {
     private Date paymentDate;
 
     @ManyToOne
-    @JoinColumn(name = "ID_order", nullable = false)
+    @JoinColumn(name = "id_order", nullable = false)
     Order order;
 }

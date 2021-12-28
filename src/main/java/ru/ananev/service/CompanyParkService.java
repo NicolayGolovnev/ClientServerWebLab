@@ -73,7 +73,8 @@ public class CompanyParkService {
      */
     @Transactional
     public List<CompanyPark> findAll() {
-        List<CompanyPark> companyParks = companyParkRepository.findAll(Sort.by("id"));
+//        List<CompanyPark> companyParks = companyParkRepository.findAll(Sort.by("ID_park"));
+        List<CompanyPark> companyParks = companyParkRepository.findAll();
         log.info("FIND ALL PARKS METHOD DONE");
         return companyParks;
     }

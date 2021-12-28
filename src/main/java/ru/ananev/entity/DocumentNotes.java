@@ -10,21 +10,21 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "Document_notes")
+@Table(name = "document_notes")
 public class DocumentNotes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_note")
+    @Column(name = "id_note")
     private Long id;
 
     @Column(name = "unloading_mark")
     private Boolean unloadingMark;
 
     @OneToOne(targetEntity = Order.class)
-    @JoinColumn(name = "ID_order")
+    @JoinColumn(name = "id_order")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "ID_document", nullable = false)
+    @JoinColumn(name = "id_document", nullable = false)
     private TransportationDocument document;
 }
