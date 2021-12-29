@@ -181,12 +181,18 @@ public class OrderOperatorController {
     }
 
     @GetMapping("/order/{id}/check_payment")
-    public boolean checkPayment(@PathVariable long id) {
+    public ModelAndView checkPayment(@PathVariable long id) {
+        ModelAndView mv = new ModelAndView("/operator/payment_order");
         Order order = orderService.findById(id);
+        boolean answer;
         if (order != null) {
-            return order.getPaymentNotes().stream().mapToInt(PaymentNote::getPayment).sum() == order.getCostDelivery();
+            answer = order.getPaymentNotes().stream().mapToInt(PaymentNote::getPayment).sum() == order.getCostDelivery();
         }
-        return false;
+        else
+            answer = false;
+
+        mv.addObject("answer", (answer) ? "оплачен" : "не оплачен");
+        return mv;
     }
 
 }

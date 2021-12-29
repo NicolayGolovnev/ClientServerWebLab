@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.ananev.entity.Customer;
 import ru.ananev.entity.Order;
+import ru.ananev.entity.PaymentNote;
+import ru.ananev.entity.Ship;
 import ru.ananev.service.CustomerService;
 import ru.ananev.service.OrderService;
+import ru.ananev.service.PaymentNoteService;
 
 import java.util.List;
 
@@ -21,6 +24,9 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    PaymentNoteService paymentNoteService;
 
     @GetMapping("/main_page")
     public ModelAndView loadMainPage() {
@@ -40,6 +46,45 @@ public class CustomerController {
         modelAndView.addObject("customer", customer);
         log.info("GET - /customer/personal_page\tOPENED CUSTOMER PERSONAL PAGE");
         return modelAndView;
+    }
+
+    @GetMapping("/create_page")
+    public ModelAndView createCustomerForm(@ModelAttribute("customerForm") Customer customer) {
+        return new ModelAndView("/customer/create_page");
+    }
+
+    @PostMapping("/create_page")
+    public ModelAndView createCustomer(Customer customer) {
+        customerService.save(customer);
+        return new ModelAndView("redirect:/customer/main_page");
+    }
+
+    @GetMapping("/{id}/state_order")
+    public ModelAndView checkState(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("/customer/state_order");
+        Order order = orderService.findById(id);
+        mv.addObject("order", order);
+        mv.addObject("customer", order.getCustomer());
+        return mv;
+    }
+
+    @GetMapping("/{id}/pay_page")
+    public ModelAndView payOrderForm(@ModelAttribute("paymentForm") PaymentNote payment, @PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("/customer/pay_page");
+        Order order = orderService.findById(id);
+        mv.addObject("order", order);
+        mv.addObject("customer", order.getCustomer());
+        return mv;
+    }
+
+    @PostMapping("/pay_page")
+    public ModelAndView payOrder(PaymentNote payment) {
+        paymentNoteService.save(payment);
+        Customer customer = orderService.findById(payment.getOrder().getId()).getCustomer();
+        ModelAndView mv = new ModelAndView("redirect:/customer/personal_page/" + customer.getId());
+//        mv.addObject("customer", customer);
+//        mv.addObject("orders", orderService.findAllByCustomerId(customer.getId()));
+        return mv;
     }
 
 }

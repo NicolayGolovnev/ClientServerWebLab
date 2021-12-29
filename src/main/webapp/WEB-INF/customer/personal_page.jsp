@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Pavel
@@ -35,10 +36,13 @@
             <td align="center">${order.costDelivery}</td>
             <td align="center">${order.pointDeparture.location}</td>
             <td align="center">${order.pointArrival.location}</td>
+            <td><button type="button" onclick="location.href='/customer/${order.id}/state_order'">Состояние заказа</button></td>
+            <td><button type="button" onclick="location.href='/customer/${order.id}/pay_page'">Оплатить заказ</button></td>
         </tr>
     </c:forEach>
 </table>
 <hr/>
+
 <button type="button" onclick="location.href='/customer/main_page'">Вернуться</button>
 </body>
 </html>

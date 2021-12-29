@@ -19,5 +19,6 @@
 </c:forEach>
 </body>
 <hr/>
+<button type="button" onclick="location.href='/customer/create'">Зарегистрироваться</button>
 <button type="button" onclick="location.href='/'">Вернуться</button>
 </html>
