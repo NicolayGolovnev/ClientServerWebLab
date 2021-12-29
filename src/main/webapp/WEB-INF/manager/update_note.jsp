@@ -27,7 +27,7 @@
             <th align="left"><form:checkbox path="unloadingMark"/></th>
         </tr>
         <tr>
-            <th align="right"><label>Судно</label></th>
+            <th align="right"><label>Груз</label></th>
 
             <th align="left">
                 <form:input type="text" list="shipList" path="order.id" autocomplete="false"/>

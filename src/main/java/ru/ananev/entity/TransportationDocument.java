@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -29,8 +30,7 @@ public class TransportationDocument {
     @JoinColumn(name = "id_route", nullable = false)
     private Route route;
 
-    @OneToMany(targetEntity = DocumentNotes.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_document")
-    private List<DocumentNotes> notes;
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DocumentNotes> notes = new ArrayList<>();
 
 }

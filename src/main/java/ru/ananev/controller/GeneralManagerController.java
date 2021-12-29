@@ -139,9 +139,6 @@ public class GeneralManagerController {
         return new ModelAndView("redirect:/general_manager/route/" + sequenceRoute.getRoute().getId());
     }
 
-    @Autowired
-    PointService pointService;
-
     /**
      * Метод обработки запроса на добавление пункта
      *
@@ -176,7 +173,7 @@ public class GeneralManagerController {
      * @param id ID пункта
      * @return редирект на главную страницу директора
      */
-    @GetMapping("/delete_route/{id}")
+    @GetMapping("/delete_point/{id}")
     public ModelAndView deletePoint(@PathVariable("id") long id) {
         log.info("GET - /general_manager/delete_point/" + id + "\tENTERED DELETE POINT METHOD");
         pointService.delete(id);
@@ -184,43 +181,4 @@ public class GeneralManagerController {
         return new ModelAndView("redirect:/general_manager/main_page");
     }
 
-    /**
-     * Метод обработки запроса на добавление пункта
-     *
-     * @param point парк
-     * @return редирект на главную страницу главного менеджера
-     */
-    @PostMapping("/create_point")
-    public ModelAndView createPoint(Point point) {
-        log.info("POST - /general_manager/create_point\tENTERED CREATE POINT METHOD");
-        pointService.save(point);
-        log.info("CREATION COMPLETED\tREDIRECTING TO MAIN PAGE");
-        return new ModelAndView("redirect:/general_manager/main_page");
-    }
-    /**
-     * Метод обработки запроса на обновление пункта
-     *
-     * @param point парк
-     * @return редирект на главную страницу главного менеджера
-     */
-    @PostMapping("/update_point")
-    public ModelAndView updatePoint(Point point) {
-        log.info("POST - /general_manager/update_point\tENTERED UPDATE POINT METHOD");
-        pointService.save(point);
-        log.info("UPDATING COMPLETED\tREDIRECTING TO MAIN PAGE");
-        return new ModelAndView("redirect:/general_manager/main_page");
-    }
-    /**
-     * Метод обработки запроса на удаление пункта
-     *
-     * @param id ID пункта
-     * @return редирект на главную страницу директора
-     */
-    @GetMapping("/delete_route/{id}")
-    public ModelAndView deletePoint(@PathVariable("id") long id) {
-        log.info("GET - /general_manager/delete_point/" + id + "\tENTERED DELETE POINT METHOD");
-        pointService.delete(id);
-        log.info("DELETE COMPLETED\tREDIRECTING TO MAIN PAGE");
-        return new ModelAndView("redirect:/general_manager/main_page");
-    }
 }

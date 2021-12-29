@@ -24,7 +24,7 @@ public class PaymentNote {
     @Column(name = "payment_date")
     private Date paymentDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_order", nullable = false)
     Order order;
 }

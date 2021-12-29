@@ -46,8 +46,7 @@ public class Order {
     @JoinColumn(name = "id_point_arrival", nullable = false)
     Point pointArrival;
 
-    @OneToMany(targetEntity = PaymentNote.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     List<PaymentNote> paymentNotes;
 
     @OneToOne(targetEntity = DocumentNotes.class)

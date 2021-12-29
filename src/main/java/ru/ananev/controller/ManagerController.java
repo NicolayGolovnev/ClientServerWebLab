@@ -121,6 +121,8 @@ public class ManagerController {
         ModelAndView modelAndView = new ModelAndView("/manager/transportation_document");
         List<DocumentNotes> documentNotes = documentNotesService.findAllByDocumentID(id);
         modelAndView.addObject("documentNotes", documentNotes);
+        modelAndView.addObject("documentId", id);
+        modelAndView.addObject("documentNum", transportationDocumentService.findById(id).getDocNumber());
         log.info("GET - /transportation_document/" + id + "\tOPENED TRANSPORTATION DOCUMENT PAGE");
         return modelAndView;
     }

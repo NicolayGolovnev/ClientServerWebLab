@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.ananev.entity.DocumentNotes;
 import ru.ananev.entity.Route;
 import ru.ananev.entity.Ship;
 import ru.ananev.entity.TransportationDocument;
+import ru.ananev.repository.DocumentNotesRepository;
 import ru.ananev.repository.RouteRepository;
 import ru.ananev.repository.ShipRepository;
 import ru.ananev.repository.TransportationDocumentRepository;
@@ -27,6 +29,9 @@ public class TransportationDocumentService {
 
     @Autowired
     ShipRepository shipRepository;
+
+    @Autowired
+    DocumentNotesRepository documentNotesRepository;
 
     /**
      * Процедура добавления документа о перевозке
@@ -61,6 +66,8 @@ public class TransportationDocumentService {
         Optional<TransportationDocument> transportationDocumentOptional = transportationDocumentRepository
                 .findById(transportationDocument.getId());
         if (transportationDocumentOptional.isPresent()) {
+            List<DocumentNotes> documentNotes = documentNotesRepository.findAllByDocumentId(transportationDocument.getId());
+            transportationDocument.getNotes().addAll(documentNotes);
             transportationDocumentRepository.save(transportationDocument);
             log.info("TRANSPORTATION DOCUMENT WITH ID " + transportationDocument.getId() + "UPDATED");
         }

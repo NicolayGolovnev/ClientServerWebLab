@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="top">
-    <h2>Строки документа #${documentNotes.get(0).document.docNumber}</h2>
+    <h2>Строки документа #${documentNum}</h2>
 </div>
 <table>
     <tr>
@@ -32,7 +32,7 @@
     </c:forEach>
 </table>
 <hr/>
-<button type="button" onclick="location.href='/manager/transportation_document/${documentNotes.get(0).document.id}/create_note'">Создать новую строчку в документе</button>
+<button type="button" onclick="location.href='/manager/transportation_document/${documentId}/create_note'">Создать новую строчку в документе</button>
 <button type="button" onclick="location.href='/manager/main_page'">Вернуться</button>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package ru.ananev.service;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,6 +115,12 @@ public class OrderService {
             return order.get();
         }
         return null;
+    }
+
+    public List<Order> findAllByCustomerId(long id) {
+        List<Order> orders = orderRepository.findAllByCustomerId(id);
+        log.info("FIND ORDERS BY CUSTOMER ID METHOD DONE");
+        return orders;
     }
 
 }

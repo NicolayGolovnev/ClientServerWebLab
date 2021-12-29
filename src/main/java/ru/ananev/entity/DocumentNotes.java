@@ -24,7 +24,7 @@ public class DocumentNotes {
     @JoinColumn(name = "id_order")
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_document", nullable = false)
     private TransportationDocument document;
 }

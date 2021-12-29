@@ -78,4 +78,9 @@ public class CustomerService {
         return customerList;
     }
 
+    public Customer findById(long id) {
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+        return customerOptional.orElse(null);
+    }
+
 }
