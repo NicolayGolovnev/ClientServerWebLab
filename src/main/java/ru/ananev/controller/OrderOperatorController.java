@@ -5,12 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.ananev.entity.*;
-import ru.ananev.service.CustomerService;
-import ru.ananev.service.OrderService;
-import ru.ananev.service.PaymentNoteService;
-import ru.ananev.service.RouteService;
+import ru.ananev.service.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("operator")
@@ -28,6 +27,9 @@ public class OrderOperatorController {
 
     @Autowired
     RouteService routeService;
+
+    @Autowired
+    SequenceRouteService sequenceRouteService;
 
     @GetMapping("/main_page")
     public ModelAndView loadMainPage() {
@@ -193,6 +195,17 @@ public class OrderOperatorController {
 
         mv.addObject("answer", (answer) ? "оплачен" : "не оплачен");
         return mv;
+    }
+
+    @GetMapping("/order/get_route_points/{id}")
+    public String getRoutePoints(@PathVariable long id) {
+        List<SequenceRoute> sequenceRoutes = sequenceRouteService.findAllByRouteID(id).stream()
+                .sorted(Comparator.comparingInt(SequenceRoute::getOrderNumber))
+                .collect(Collectors.toList());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (SequenceRoute sequenceRoute : sequenceRoutes)
+            stringBuilder.append(sequenceRoute.getPoint().getLocation()).append(", ");
+        return stringBuilder.toString();
     }
 
 }
