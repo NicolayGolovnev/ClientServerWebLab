@@ -31,15 +31,26 @@ public class OrderOperatorController {
     @Autowired
     SequenceRouteService sequenceRouteService;
 
+    @Autowired
+    PointService pointService;
+
     @GetMapping("/main_page")
     public ModelAndView loadMainPage() {
-        ModelAndView modelAndView = new ModelAndView("operator_main_page");
+        ModelAndView modelAndView = new ModelAndView("operator/main_page");
         List<Order> orderList = orderService.findAll();
         List<Customer> customerList = customerService.findAll();
-        modelAndView.addObject("orderList", orderList);
+        modelAndView.addObject("orders", orderList);
         modelAndView.addObject("customerList", customerList);
         log.info("GET - /operator/main_page\tOPENED OPERATOR MAIN PAGE");
         return modelAndView;
+    }
+
+    @GetMapping("create_order")
+    public ModelAndView createOrderForm(@ModelAttribute("orderForm") Order order){
+        ModelAndView mv = new ModelAndView("operator/create_order");
+        mv.addObject("points", pointService.findAll());
+        mv.addObject("customers", customerService.findAll());
+        return mv;
     }
 
     /**
@@ -182,7 +193,7 @@ public class OrderOperatorController {
         return new ModelAndView("redirect:/operator/order/" + paymentNote.getOrder().getId());
     }
 
-    @GetMapping("/order/{id}/check_payment")
+    @GetMapping("/{id}/payment_order")
     public ModelAndView checkPayment(@PathVariable long id) {
         ModelAndView mv = new ModelAndView("/operator/payment_order");
         Order order = orderService.findById(id);
@@ -197,15 +208,19 @@ public class OrderOperatorController {
         return mv;
     }
 
-    @GetMapping("/order/get_route_points/{id}")
-    public String getRoutePoints(@PathVariable long id) {
+    @GetMapping("/get_route_points/{id}")
+    public ModelAndView getRoutePoints(@PathVariable long id) {
+        ModelAndView mv = new ModelAndView("operator/route");
+        String answer;
         List<SequenceRoute> sequenceRoutes = sequenceRouteService.findAllByRouteID(id).stream()
                 .sorted(Comparator.comparingInt(SequenceRoute::getOrderNumber))
                 .collect(Collectors.toList());
         StringBuilder stringBuilder = new StringBuilder();
         for (SequenceRoute sequenceRoute : sequenceRoutes)
             stringBuilder.append(sequenceRoute.getPoint().getLocation()).append(", ");
-        return stringBuilder.toString();
+        answer = stringBuilder.toString();
+        mv.addObject("answer", answer);
+        return mv;
     }
 
 }

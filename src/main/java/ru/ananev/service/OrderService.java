@@ -9,6 +9,8 @@ import ru.ananev.repository.CustomerRepository;
 import ru.ananev.repository.OrderRepository;
 import ru.ananev.repository.PointRepository;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,22 +87,20 @@ public class OrderService {
      * @throws RuntimeException если что-то некорректно
      */
     private void checkOrder(Order order) throws RuntimeException {
-        var customer = customerRepository.findCustomerByPassport(order.getCustomer().getPassport());
-        if (!customer.isPresent())
-            throw new RuntimeException("Заказчик с паспортом " + order.getCustomer().getPassport() + " не найден");
-        var pointDep = pointRepository.findPointByLocation(order.getPointDeparture().getLocation());
-        if (!pointDep.isPresent())
-            throw new RuntimeException("Пункт отправки с локацией " + order.getPointDeparture().getLocation()
-                    + " не найден");
-        var pointArr = pointRepository.findPointByLocation(order.getPointArrival().getLocation());
-        if (!pointArr.isPresent())
-            throw new RuntimeException("Пункт доставки с локацией " + order.getPointArrival().getLocation()
-                    + " не найден");
-        if (pointDep.get().equals(pointArr.get()))
-            throw new RuntimeException("Пункты отправки и доставки имеют одинаковую локацию: "
-                    + order.getPointArrival().getLocation());
-        if (order.getDepartureDate().after(order.getArrivalDate()))
-            throw new RuntimeException("Время прибытия не может быть позже времени отправки");
+//        var customer = customerRepository.findCustomerByPassport(order.getCustomer().getPassport());
+//        if (!customer.isPresent())
+//            throw new RuntimeException("Заказчик с паспортом " + order.getCustomer().getPassport() + " не найден");
+//        var pointDep = pointRepository.findPointByLocation(order.getPointDeparture().getLocation());
+//        if (!pointDep.isPresent())
+//            throw new RuntimeException("Пункт отправки с локацией " + order.getPointDeparture().getLocation()
+//                    + " не найден");
+//        var pointArr = pointRepository.findPointByLocation(order.getPointArrival().getLocation());
+//        if (!pointArr.isPresent())
+//            throw new RuntimeException("Пункт доставки с локацией " + order.getPointArrival().getLocation()
+//                    + " не найден");
+//        if (pointDep.get().equals(pointArr.get()))
+//            throw new RuntimeException("Пункты отправки и доставки имеют одинаковую локацию: "
+//                    + order.getPointArrival().getLocation());
     }
 
     public List<Order> findAll() {

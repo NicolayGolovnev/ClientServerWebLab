@@ -20,10 +20,10 @@ public class Order {
     private Long id;
 
     @Column(name = "departure_date")
-    private Date departureDate;
+    private String departureDate;
 
     @Column(name = "arrival_date")
-    private Date arrivalDate;
+    private String arrivalDate;
 
     @Column(name = "cargo")
     private String cargo;

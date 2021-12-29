@@ -22,16 +22,16 @@ public class SequenceRoute {
     private int orderNumber;
 
     @Column(name = "arrival_date")
-    private Date arrivalDate;
+    private String arrivalDate;
 
     @Column(name = "dispatch_date")
-    private Date dispatchDate;
+    private String dispatchDate;
 
     @ManyToOne
     @JoinColumn(name = "id_point", nullable = false)
     private Point point;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_route", nullable = false)
     private Route route;
 }

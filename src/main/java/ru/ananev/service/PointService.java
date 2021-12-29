@@ -8,6 +8,7 @@ import ru.ananev.entity.PaymentNote;
 import ru.ananev.entity.Point;
 import ru.ananev.repository.PointRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,6 +61,14 @@ public class PointService {
         }
         else
             throw new RuntimeException("Пункт с ID = " + pointID + " не существует");
+    }
+
+    public List<Point> findAll() {
+        return pointRepository.findAll();
+    }
+
+    public Point findById(Long id) {
+        return pointRepository.findById(id).orElse(null);
     }
 
 }

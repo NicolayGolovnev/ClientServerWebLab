@@ -78,4 +78,8 @@ public class RouteService {
         return routes;
     }
 
+    public Route findById(Long id){
+        return routeRepository.findById(id).orElse(null);
+    }
+
 }

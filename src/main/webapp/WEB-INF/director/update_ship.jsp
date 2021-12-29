@@ -16,7 +16,7 @@
     <h2>Изменение корабля в парке</h2>
 </div>
 <%--@elvariable id="agentForm" type="ru.golovnev.model.CounterAgent"--%>
-<form:form method="POST" action="/director/create_ship" modelAttribute="ship">
+<form:form method="POST" action="/director/update_ship" modelAttribute="ship">
     <table>
         <tr hidden>
             <th align="right"><label for="id">ID</label></th>

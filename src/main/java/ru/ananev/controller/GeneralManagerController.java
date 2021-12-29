@@ -34,11 +34,17 @@ public class GeneralManagerController {
      */
     @GetMapping("/main_page")
     public ModelAndView loadMainPage() {
-        ModelAndView modelAndView = new ModelAndView("general_manager_main_page");
+        ModelAndView modelAndView = new ModelAndView("general_manager/main_page");
         List<Route> routeList = routeService.findAll();
-        modelAndView.addObject("routeList", routeList);
+        modelAndView.addObject("routes", routeList);
+        modelAndView.addObject("points", pointService.findAll());
         log.info("GET - /general_manager/main_page\tOPENED GENERAL MANAGER MAIN PAGE");
         return modelAndView;
+    }
+
+    @GetMapping("/create_route")
+    public ModelAndView createRouteForm(@ModelAttribute("routeForm") Route route) {
+        return new ModelAndView("general_manager/create_route");
     }
 
     /**
@@ -53,6 +59,13 @@ public class GeneralManagerController {
         routeService.save(route);
         log.info("CREATION COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/general_manager/main_page");
+    }
+
+    @GetMapping("/update_route/{id}")
+    public ModelAndView updateRout(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("general_manager/update_route");
+        mv.addObject("route", routeService.findById(id));
+        return mv;
     }
 
     /**
@@ -90,11 +103,21 @@ public class GeneralManagerController {
      */
     @GetMapping("/route/{id}")
     public ModelAndView loadRoutePage(@PathVariable long id) {
-        ModelAndView modelAndView = new ModelAndView("route_page");
+        ModelAndView modelAndView = new ModelAndView("general_manager/route");
         List<SequenceRoute> sequenceRoutes = sequenceRouteService.findAllByRouteID(id);
-        modelAndView.addObject("sequenceRoutes", sequenceRoutes);
+        modelAndView.addObject("sequences", sequenceRoutes);
+        modelAndView.addObject("routeId", id);
         log.info("GET - /route/" + id + "\tOPENED ROUTE PAGE");
         return modelAndView;
+    }
+
+    @GetMapping("/route/{id}/create_sequence")
+    public ModelAndView createSequenceForm(@ModelAttribute("sequenceForm") SequenceRoute sequenceRoute, @PathVariable long id) {
+        ModelAndView mv = new ModelAndView("general_manager/create_sequence");
+        mv.addObject("points", pointService.findAll());
+        mv.addObject("routes", routeService.findAll());
+        mv.addObject("sequenceId", id);
+        return mv;
     }
 
     /**
@@ -111,6 +134,15 @@ public class GeneralManagerController {
         return new ModelAndView("redirect:/general_manager/route/" + sequenceRoute.getRoute().getId());
     }
 
+    @GetMapping("/route/update_sequence/{id}")
+    public ModelAndView updSequence(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("/general_manager/update_sequence");
+        mv.addObject("sequence", sequenceRouteService.findById(id));
+        mv.addObject("routes", routeService.findAll());
+        mv.addObject("points", pointService.findAll());
+        return mv;
+    }
+
     /**
      * Метод обработки запроса на обновление последовательности
      *
@@ -125,18 +157,18 @@ public class GeneralManagerController {
         return new ModelAndView("redirect:/general_manager/route/" + sequenceRoute.getRoute().getId());
     }
 
-    /**
-     * Метод обработки запроса на удаление последовательности
-     *
-     * @param sequenceRoute последовательность
-     * @return редирект на страницу маршрута
-     */
-    @PostMapping("/route/delete_sequence")
-    public ModelAndView deleteSequence(SequenceRoute sequenceRoute) {
+    @GetMapping("/route/delete_sequence/{id}")
+    public ModelAndView deleteSequence(@PathVariable Long id) {
         log.info("POST - /general_manager/route/delete_sequence\tENTERED DELETE SEQUENCE METHOD");
-        sequenceRouteService.delete(sequenceRoute.getId());
+        Long id1 = sequenceRouteService.findById(id).getRoute().getId();
+        sequenceRouteService.delete(id);
         log.info("DELETING COMPLETED\tREDIRECTING TO ROUTE PAGE");
-        return new ModelAndView("redirect:/general_manager/route/" + sequenceRoute.getRoute().getId());
+        return new ModelAndView("redirect:/general_manager/route/" + id1);
+    }
+
+    @GetMapping("/create_point")
+    public ModelAndView createPointForm(@ModelAttribute("pointForm") Point point) {
+        return new ModelAndView("general_manager/create_point");
     }
 
     /**
@@ -151,6 +183,15 @@ public class GeneralManagerController {
         pointService.save(point);
         log.info("CREATION COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/general_manager/main_page");
+    }
+
+    @GetMapping("/update_point/{id}")
+    public ModelAndView updatePoint(@PathVariable Long id) {
+        ModelAndView mv = new ModelAndView("general_manager/update_point");
+        log.info("POST - /general_manager/update_point\tENTERED UPDATE POINT METHOD");
+        mv.addObject("point", pointService.findById(id));
+        log.info("UPDATING COMPLETED\tREDIRECTING TO MAIN PAGE");
+        return mv;
     }
 
     /**

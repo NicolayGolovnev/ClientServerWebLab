@@ -86,15 +86,15 @@ public class SequenceRouteService {
      * @param sequenceRoute порядок следования
      */
     private void checkSequence(SequenceRoute sequenceRoute) throws RuntimeException {
-        var point = pointRepository.findPointByLocation(sequenceRoute.getPoint().getLocation());
-        if (!point.isPresent())
-            throw new RuntimeException("Пункт отправки с локацией " + sequenceRoute.getPoint().getLocation()
-                    + " не найден");
-        var optionalRoute = routeRepository.findById(sequenceRoute.getRoute().getId());
-        if (!optionalRoute.isPresent())
-            throw new RuntimeException("Маршрут с ID = " + sequenceRoute.getRoute().getId() + " не найден");
-        if (sequenceRoute.getArrivalDate().after(sequenceRoute.getDispatchDate()))
-            throw new RuntimeException("Время прибытия не может быть позже времени отправки");
+//        var point = pointRepository.findPointByLocation(sequenceRoute.getPoint().getLocation());
+//        if (!point.isPresent())
+//            throw new RuntimeException("Пункт отправки с локацией " + sequenceRoute.getPoint().getLocation()
+//                    + " не найден");
+//        var optionalRoute = routeRepository.findById(sequenceRoute.getRoute().getId());
+//        if (!optionalRoute.isPresent())
+//            throw new RuntimeException("Маршрут с ID = " + sequenceRoute.getRoute().getId() + " не найден");
+//        if (sequenceRoute.getArrivalDate().after(sequenceRoute.getDispatchDate()))
+//            throw new RuntimeException("Время прибытия не может быть позже времени отправки");
 
     }
 
@@ -111,4 +111,7 @@ public class SequenceRouteService {
         return sequenceRoutes;
     }
 
+    public SequenceRoute findById(Long id) {
+        return sequenceRouteRepository.findById(id).orElse(null);
+    }
 }
