@@ -46,7 +46,6 @@
         </tr>
         <tr>
             <th align="right"><label>Маршрут</label></th>
-
             <th align="left">
                 <form:input type="text" list="routes" path="route.id" autocomplete="false"/>
                 <datalist id="routes">

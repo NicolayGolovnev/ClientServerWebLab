@@ -13,7 +13,7 @@
     <title>Создание последовательности</title>
 </head>
 <body>
-<h2>Добавление нового порядка в маршрута</h2>
+<h2>Добавление нового порядка в маршрут</h2>
 <form:form method="POST" action="/general_manager/route/create_sequence" modelAttribute="sequenceForm">
     <table>
         <tr hidden>
@@ -40,18 +40,6 @@
                 <datalist id="points">
                     <c:forEach items="${points}" var="point">
                         <option value="${point.id}">${point.pointLocation}</option>
-                    </c:forEach>
-                </datalist>
-            </th>
-        </tr>
-        <tr>
-            <th align="right"><label>Маршрут</label></th>
-
-            <th align="left">
-                <form:input type="text" list="routes" path="route.id" autocomplete="false"/>
-                <datalist id="routes">
-                    <c:forEach items="${routes}" var="route">
-                        <option value="${route.id}"></option>
                     </c:forEach>
                 </datalist>
             </th>
