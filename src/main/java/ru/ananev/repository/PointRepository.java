@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface PointRepository extends JpaRepository<Point, Long> {
 
-    Optional<Point> findPointByLocation(String location);
+    Optional<Point> findPointByPointLocation(String location);
 }

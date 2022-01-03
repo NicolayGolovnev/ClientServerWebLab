@@ -26,7 +26,7 @@
             <td align="center">${sequence.orderNumber}</td>
             <td align="center">${sequence.arrivalDate}</td>
             <td align="center">${sequence.dispatchDate}</td>
-            <td align="center">${sequence.point.location}</td>
+            <td align="center">${sequence.point.pointLocation}</td>
             <td align="center">${sequence.route.id}</td>
             <td width="auto"><button type="button" onclick="location.href='/general_manager/route/update_sequence/${sequence.id}'">Изменить</button></td>
             <td width="auto"><button type="button" onclick="location.href='/general_manager/route/delete_sequence/${sequence.id}'">Удалить</button></td>

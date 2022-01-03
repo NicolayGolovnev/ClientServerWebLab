@@ -19,7 +19,7 @@ public class Point {
     private Long id;
 
     @Column(name = "location")
-    private String location;
+    private String pointLocation;
 
     @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_point_departure")

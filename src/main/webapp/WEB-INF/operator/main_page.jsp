@@ -33,8 +33,8 @@
       <td align="center">${order.cargo}</td>
       <td align="center">${order.cargoWeight}</td>
       <td align="center">${order.costDelivery}</td>
-      <td align="center">${order.pointDeparture.location}</td>
-      <td align="center">${order.pointArrival.location}</td>
+      <td align="center">${order.pointDeparture.pointLocation}</td>
+      <td align="center">${order.pointArrival.pointLocation}</td>
       <td align="center">${order.customer.firstName.concat(" ").concat(order.customer.secondName)}</td>
       <td width="auto"><button type="button" onclick="location.href='/operator/${order.id}/payment_order'">Проверить оплату</button></td>
       <td width="auto"><button type="button" onclick="location.href='/operator/get_route_points/${order.documentNote.document.route.id}'">Посмотреть маршрут</button></td>

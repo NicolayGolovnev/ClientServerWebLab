@@ -60,7 +60,7 @@
                 <form:input type="text" list="points" path="pointDeparture.id" autocomplete="false"/>
                 <datalist id="points">
                     <c:forEach items="${points}" var="point">
-                        <option value="${point.id}">${point.location.concat("")}</option>
+                        <option value="${point.id}">${point.pointLocation.concat("")}</option>
                     </c:forEach>
                 </datalist>
             </th>
@@ -72,7 +72,7 @@
                 <form:input type="text" list="points" path="pointArrival.id" autocomplete="false"/>
                 <datalist id="points">
                     <c:forEach items="${points}" var="point">
-                        <option value="${point.id}">${point.location}</option>
+                        <option value="${point.id}">${point.pointLocation}</option>
                     </c:forEach>
                 </datalist>
             </th>

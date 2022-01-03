@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.ananev.entity.PaymentNote;
 import ru.ananev.entity.Point;
 import ru.ananev.repository.PointRepository;
 
@@ -25,9 +24,9 @@ public class PointService {
      */
     @Transactional
     public void save(Point point) {
-        Optional<Point> pointOptional = pointRepository.findPointByLocation(point.getLocation());
+        Optional<Point> pointOptional = pointRepository.findPointByPointLocation(point.getPointLocation());
         if (pointOptional.isPresent())
-            throw new RuntimeException("Пункт с локацией " + point.getLocation() + " уже существует.");
+            throw new RuntimeException("Пункт с локацией " + point.getPointLocation() + " уже существует.");
         pointRepository.save(point);
         log.info("POINT SAVED");
     }
@@ -41,8 +40,8 @@ public class PointService {
     public void update(Point point) {
         Optional<Point> pointOptional = pointRepository.findById(point.getId());
         if (pointOptional.isPresent()) {
-            if (point.getLocation().equals(pointOptional.get().getLocation()))
-                throw new RuntimeException("Пункт с локацией " + point.getLocation() + " уже существует.");
+            if (point.getPointLocation().equals(pointOptional.get().getPointLocation()))
+                throw new RuntimeException("Пункт с локацией " + point.getPointLocation() + " уже существует.");
             pointRepository.save(point);
             log.info("POINT WITH ID " + point.getId() + "UPDATED");
         }

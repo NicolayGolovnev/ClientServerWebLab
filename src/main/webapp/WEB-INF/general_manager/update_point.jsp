@@ -3,7 +3,7 @@
   Created by IntelliJ IDEA.
   User: kolya
   Date: 29.12.2021
-  Time: 15:57
+  Time: 15:40
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -20,11 +20,12 @@
             <th align="left"><form:input path="id" readonly="true" id="id" cssStyle="background-color: #bbbaba"/></th>
         </tr>
         <tr>
-            <th align="right"><label>Местоположение</label></th>
-            <th align="left"><form:input type="text" path="location"/></th>
+            <th align="right"><label>Требование к судну</label></th>
+            <th align="left"><form:input type="text" path="pointLocation"/></th>
         </tr>
 
         <tr>
+            <th></th>
             <th align="right">
                 <button type="button" onclick="location.href='/general_manager/main_page'">Назад</button>
                 <button type="submit">Изменить</button>

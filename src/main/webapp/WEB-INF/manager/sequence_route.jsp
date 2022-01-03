@@ -27,7 +27,7 @@
             <td align="center">${sequence.orderNumber}</td>
             <td align="center">${sequence.arrivalDate}</td>
             <td align="center">${sequence.dispatchDate}</td>
-            <td align="center">${sequence.point.location}</td>
+            <td align="center">${sequence.point.pointLocation}</td>
         </tr>
     </c:forEach>
 </table>

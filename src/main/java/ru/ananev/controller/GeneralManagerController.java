@@ -203,7 +203,7 @@ public class GeneralManagerController {
     @PostMapping("/update_point")
     public ModelAndView updatePoint(Point point) {
         log.info("POST - /general_manager/update_point\tENTERED UPDATE POINT METHOD");
-        pointService.save(point);
+        pointService.update(point);
         log.info("UPDATING COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/general_manager/main_page");
     }

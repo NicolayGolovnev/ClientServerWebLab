@@ -217,7 +217,7 @@ public class OrderOperatorController {
                 .collect(Collectors.toList());
         StringBuilder stringBuilder = new StringBuilder();
         for (SequenceRoute sequenceRoute : sequenceRoutes)
-            stringBuilder.append(sequenceRoute.getPoint().getLocation()).append(", ");
+            stringBuilder.append(sequenceRoute.getPoint().getPointLocation()).append(", ");
         answer = stringBuilder.toString();
         mv.addObject("answer", answer);
         return mv;

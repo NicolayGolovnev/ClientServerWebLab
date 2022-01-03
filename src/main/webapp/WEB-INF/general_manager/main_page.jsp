@@ -37,7 +37,7 @@
     <c:forEach items="${points}" var="point">
         <tr>
             <td align="center">${point.id}</td>
-            <td align="center">${point.location}</td>
+            <td align="center">${point.pointLocation}</td>
             <td width="auto"><button type="button" onclick="location.href='/general_manager/update_point/${point.id}'">Изменить</button></td>
             <td width="auto"><button type="button" onclick="location.href='/general_manager/delete_point/${point.id}'">Удалить</button></td>
         </tr>

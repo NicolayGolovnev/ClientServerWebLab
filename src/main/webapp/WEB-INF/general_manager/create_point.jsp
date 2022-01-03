@@ -21,7 +21,7 @@
     </tr>
     <tr>
     <th align="right"><label>Местоположение</label></th>
-    <th align="left"><form:input type="text" path="location"/></th>
+    <th align="left"><form:input type="text" path="pointLocation"/></th>
     </tr>
 
     <tr>

@@ -34,8 +34,8 @@
             <td align="center">${order.cargo}</td>
             <td align="center">${order.cargoWeight}</td>
             <td align="center">${order.costDelivery}</td>
-            <td align="center">${order.pointDeparture.location}</td>
-            <td align="center">${order.pointArrival.location}</td>
+            <td align="center">${order.pointDeparture.pointLocation}</td>
+            <td align="center">${order.pointArrival.pointLocation}</td>
             <td><button type="button" onclick="location.href='/customer/${order.id}/state_order'">Состояние заказа</button></td>
             <td><button type="button" onclick="location.href='/customer/${order.id}/pay_page'">Оплатить заказ</button></td>
         </tr>

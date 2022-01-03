@@ -39,7 +39,7 @@
                 <form:input type="text" list="points" path="point.id" autocomplete="false"/>
                 <datalist id="points">
                     <c:forEach items="${points}" var="point">
-                        <option value="${point.id}">${point.location}</option>
+                        <option value="${point.id}">${point.pointLocation}</option>
                     </c:forEach>
                 </datalist>
             </th>
