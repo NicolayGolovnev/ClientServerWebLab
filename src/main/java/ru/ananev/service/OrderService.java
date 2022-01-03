@@ -3,6 +3,7 @@ package ru.ananev.service;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ananev.entity.Order;
@@ -51,6 +52,9 @@ public class OrderService {
     @Transactional
     public void update(Order order) {
         try {
+            order.setCustomer(customerRepository.findById(order.getCustomer().getId()).get());
+            order.setPointArrival(pointRepository.findById(order.getPointArrival().getId()).get());
+            order.setPointDeparture(pointRepository.findById(order.getPointDeparture().getId()).get());
             checkOrder(order);
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -58,6 +62,7 @@ public class OrderService {
         }
         Optional<Order> optionalOrder = orderRepository.findById(order.getId());
         if (optionalOrder.isPresent()) {
+            order.getPaymentNotes().addAll(optionalOrder.get().getPaymentNotes());
             orderRepository.save(order);
             log.info("ORDER WITH ID " + order.getId() + "UPDATED");
         }
@@ -86,7 +91,7 @@ public class OrderService {
      * @throws RuntimeException если что-то некорректно
      */
     private void checkOrder(Order order) throws RuntimeException {
-        var customer = customerRepository.findCustomerByPassport(order.getCustomer().getPassport());
+        var customer = customerRepository.findById(order.getCustomer().getId());
         if (!customer.isPresent())
             throw new RuntimeException("Заказчик с паспортом " + order.getCustomer().getPassport() + " не найден");
         var pointDep = pointRepository.findPointByPointLocation(order.getPointDeparture().getPointLocation());
@@ -103,7 +108,7 @@ public class OrderService {
     }
 
     public List<Order> findAll() {
-        return orderRepository.findAll();
+        return orderRepository.findAll(Sort.by("id"));
     }
 
     public Order findById(long id) {

@@ -32,8 +32,8 @@
             <th align="left">
                 <form:input type="text" list="shipList" path="order.id" autocomplete="false"/>
                 <datalist id="shipList">
-                    <c:forEach items="${orderList}" var="ship">
-                        <option value="${ship.id}"></option>
+                    <c:forEach items="${orderList}" var="order">
+                        <option value="${order.id}">${order.cargo}</option>
                     </c:forEach>
                 </datalist>
             </th>

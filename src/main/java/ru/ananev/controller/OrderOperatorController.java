@@ -67,6 +67,15 @@ public class OrderOperatorController {
         return new ModelAndView("redirect:/operator/main_page");
     }
 
+    @GetMapping("/update_order/{id}")
+    public ModelAndView updateOrderForm(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("/operator/update_order");
+        modelAndView.addObject("order", orderService.findById(id));
+        modelAndView.addObject("customers", customerService.findAll());
+        modelAndView.addObject("points", pointService.findAll());
+        return modelAndView;
+    }
+
     /**
      * Метод обработки запроса на обновление заказа
      *

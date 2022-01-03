@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class Order {
     Point pointArrival;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<PaymentNote> paymentNotes;
+    List<PaymentNote> paymentNotes = new ArrayList<>();
 
     @OneToOne(targetEntity = DocumentNotes.class)
     @JoinColumn(name = "id_order")
