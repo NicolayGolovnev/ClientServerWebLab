@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ananev.entity.Route;
+import ru.ananev.entity.SequenceRoute;
 import ru.ananev.entity.Ship;
 import ru.ananev.repository.RouteRepository;
 
@@ -18,6 +19,9 @@ public class RouteService {
 
     @Autowired
     RouteRepository routeRepository;
+
+    @Autowired
+    SequenceRouteService sequenceRouteService;
 
     /**
      * Процедура создания нового маршрута
@@ -44,6 +48,8 @@ public class RouteService {
     public void update(Route route) {
         Optional<Route> optionalRoute = routeRepository.findById(route.getId());
         if (optionalRoute.isPresent()) {
+            List<SequenceRoute> sequenceRoutes = sequenceRouteService.findAllByRouteID(route.getId());
+            route.getSequenceRoutes().addAll(sequenceRoutes);
             routeRepository.save(route);
             log.info("ROUTE WITH ID " + route.getId() + "UPDATED");
         }
