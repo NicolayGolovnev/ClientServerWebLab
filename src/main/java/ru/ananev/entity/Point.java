@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,15 +22,12 @@ public class Point {
     @Column(name = "location")
     private String pointLocation;
 
-    @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_point_departure")
+    @OneToMany(mappedBy = "pointDeparture", fetch = FetchType.LAZY)
     List<Order> departureOrders;
 
-    @OneToMany(targetEntity = Order.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_point_arrival")
-    List<Order> arrivalOrders;
+    @OneToMany(mappedBy = "pointArrival", fetch = FetchType.LAZY)
+    List<Order> arrivalOrders = new ArrayList<>();;
 
-    @OneToMany(targetEntity = SequenceRoute.class)
-    @JoinColumn(name = "id_sequence")
-    List<SequenceRoute> routes;
+    @OneToMany(mappedBy = "point", fetch = FetchType.LAZY)
+    List<SequenceRoute> routes = new ArrayList<>();;
 }

@@ -62,7 +62,7 @@ public class GeneralManagerController {
     }
 
     @GetMapping("/update_route/{id}")
-    public ModelAndView updateRout(@PathVariable Long id) {
+    public ModelAndView updateRoute(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("general_manager/update_route");
         mv.addObject("route", routeService.findById(id));
         return mv;
