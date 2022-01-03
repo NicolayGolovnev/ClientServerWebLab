@@ -44,9 +44,12 @@
                 </datalist>
             </th>
         </tr>
+        <tr hidden>
+            <th align="left"><form:input path="route.id" value="${routeId}" readonly="true"/></th>
+        </tr>
         <tr>
             <th align="right">
-                <button type="button" onclick="location.href='/general_manager/route/${sequenceId}'">Назад</button>
+                <button type="button" onclick="location.href='/general_manager/route/${routeId}'">Назад</button>
                 <button type="submit">Добавить</button>
             </th>
         </tr>

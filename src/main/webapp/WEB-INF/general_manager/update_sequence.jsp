@@ -57,7 +57,7 @@
         </tr>
         <tr>
             <th align="right">
-                <button type="button" onclick="location.href='/general_manager/route/${sequenceId}'">Назад</button>
+                <button type="button" onclick="location.href='/general_manager/route/${sequence.route.id}'">Назад</button>
                 <button type="submit">Изменить</button>
             </th>
         </tr>

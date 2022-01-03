@@ -9,17 +9,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Маршрут</title>
+    <title>Маршрут №${routeId}</title>
 </head>
 <body>
-<h2>Порядок следования</h2>
+<h2>Порядок следования по маршруту №${routeId}</h2>
 <table>
     <tr>
         <th>Порядковый номер</th>
         <th>Время прибытия</th>
         <th>Время отправки</th>
         <th>Пункт</th>
-        <th>Маршрут</th>
     </tr>
     <c:forEach items="${sequences}" var="sequence">
         <tr>
@@ -27,7 +26,6 @@
             <td align="center">${sequence.arrivalDate}</td>
             <td align="center">${sequence.dispatchDate}</td>
             <td align="center">${sequence.point.pointLocation}</td>
-            <td align="center">${sequence.route.id}</td>
             <td width="auto"><button type="button" onclick="location.href='/general_manager/route/update_sequence/${sequence.id}'">Изменить</button></td>
             <td width="auto"><button type="button" onclick="location.href='/general_manager/route/delete_sequence/${sequence.id}'">Удалить</button></td>
         </tr>

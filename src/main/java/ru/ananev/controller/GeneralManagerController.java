@@ -116,7 +116,7 @@ public class GeneralManagerController {
         ModelAndView mv = new ModelAndView("general_manager/create_sequence");
         mv.addObject("points", pointService.findAll());
         mv.addObject("routes", routeService.findAll());
-        mv.addObject("sequenceId", id);
+        mv.addObject("routeId", id);
         return mv;
     }
 
