@@ -2,6 +2,7 @@ package ru.ananev.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.ananev.entity.Customer;
@@ -48,12 +49,12 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @GetMapping("/create_page")
+    @GetMapping("/create")
     public ModelAndView createCustomerForm(@ModelAttribute("customerForm") Customer customer) {
         return new ModelAndView("/customer/create_page");
     }
 
-    @PostMapping("/create_page")
+    @PostMapping("/add_new")
     public ModelAndView createCustomer(Customer customer) {
         customerService.save(customer);
         return new ModelAndView("redirect:/customer/main_page");
@@ -85,6 +86,16 @@ public class CustomerController {
 //        mv.addObject("customer", customer);
 //        mv.addObject("orders", orderService.findAllByCustomerId(customer.getId()));
         return mv;
+    }
+
+    @GetMapping("/{customer_id}/order/{id}/payment_page")
+    public ModelAndView getPaymentPage(@PathVariable long id, @PathVariable long customer_id) {
+        ModelAndView modelAndView = new ModelAndView("customer/order_payment");
+        List<PaymentNote> payments = paymentNoteService.findAllByOrderId(id);
+        modelAndView.addObject("payments", payments);
+        modelAndView.addObject("orderId", id);
+        modelAndView.addObject("customer_id", customer_id);
+        return modelAndView;
     }
 
 }

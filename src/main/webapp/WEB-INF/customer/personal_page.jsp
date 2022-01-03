@@ -28,7 +28,7 @@
     </tr>
     <c:forEach items="${orders}" var="order">
         <tr>
-            <td align="center"><a href="/customer/transportation_document/${order.id}">${order.id}</a></td>
+            <td align="center"><a href="/customer/${customer.id}/order/${order.id}/payment_page">${order.id}</a></td>
             <td align="center">${order.departureDate}</td>
             <td align="center">${order.arrivalDate}</td>
             <td align="center">${order.cargo}</td>

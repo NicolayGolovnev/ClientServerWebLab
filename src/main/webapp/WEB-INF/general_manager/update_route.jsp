@@ -13,7 +13,7 @@
 </head>
 <body>
 <h2>Редактирование маршрута</h2>
-<form:form method="POST" action="/general_manager/create_route" modelAttribute="route">
+<form:form method="POST" action="/general_manager/update_route" modelAttribute="route">
     <table>
         <tr hidden>
             <th align="right"><label for="id">ID</label></th>

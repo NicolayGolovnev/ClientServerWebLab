@@ -30,8 +30,7 @@ public class Ship {
     @Column(name = "state")
     private String state;
 
-    @OneToMany(targetEntity = TransportationDocument.class)
-    @JoinColumn(name = "id_ship")
+    @OneToMany(mappedBy = "ship", targetEntity = TransportationDocument.class)
     private List<TransportationDocument> documents;
 
     @ManyToOne()

@@ -22,11 +22,11 @@ public class TransportationDocument {
     @Column(name = "number_document")
     private int docNumber;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_ship", nullable = false)
     private Ship ship;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_route", nullable = false)
     private Route route;
 

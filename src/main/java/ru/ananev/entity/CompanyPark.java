@@ -21,7 +21,6 @@ public class CompanyPark {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(targetEntity = Ship.class)
-    @JoinColumn(name = "id_park")
+    @OneToMany(mappedBy = "park", orphanRemoval = true, cascade = CascadeType.ALL)
     List<Ship> ships;
 }

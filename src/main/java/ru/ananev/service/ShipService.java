@@ -34,8 +34,7 @@ public class ShipService {
         if (companyPark.isPresent()) {
             shipRepository.save(ship);
             log.info("SHIP SAVED");
-        }
-        else
+        } else
             throw new RuntimeException("Парк " + ship.getPark().getName() + " не найден");
     }
 
@@ -46,11 +45,12 @@ public class ShipService {
      */
     @Transactional
     public void update(Ship ship) {
-        Optional<CompanyPark> companyPark = companyParkRepository.findCompanyParkByName(ship.getPark().getName());
-        if (!companyPark.isPresent())
-            throw new RuntimeException("Парк " + ship.getPark().getName() + " не найден");
         Optional<Ship> shipOptional = shipRepository.findById(ship.getId());
         if (shipOptional.isPresent()) {
+            ship.setPark(shipOptional.get().getPark());
+            Optional<CompanyPark> companyPark = companyParkRepository.findCompanyParkByName(ship.getPark().getName());
+            if (!companyPark.isPresent())
+                throw new RuntimeException("Парк " + ship.getPark().getName() + " не найден");
             shipRepository.save(ship);
             log.info("SHIP WITH ID " + ship.getId() + "UPDATED");
         }
@@ -67,8 +67,7 @@ public class ShipService {
         if (ship.isPresent()) {
             shipRepository.deleteById(shipID);
             log.info("SHIP WITH ID " + shipID + "DELETED");
-        }
-        else
+        } else
             throw new RuntimeException("Судно с ID = " + shipID + " не существует");
     }
 
@@ -90,7 +89,7 @@ public class ShipService {
         if (ship.isPresent())
             return ship.get();
         else
-            throw new RuntimeException("Ship[id = " + id +"] not found");
+            throw new RuntimeException("Ship[id = " + id + "] not found");
     }
 
 }

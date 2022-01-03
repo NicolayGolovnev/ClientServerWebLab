@@ -15,7 +15,7 @@
 <div>
     <h2>Регистрация заказчика</h2>
 </div>
-<form:form method="POST" action="/customer/create_page" modelAttribute="customerForm">
+<form:form method="POST" action="/customer/add_new" modelAttribute="customerForm">
     <table>
         <tr hidden>
             <th align="right"><label for="id">ID</label></th>

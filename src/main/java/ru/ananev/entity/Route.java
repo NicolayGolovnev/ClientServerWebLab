@@ -25,7 +25,6 @@ public class Route {
     @JoinColumn(name = "id_route")
     private List<TransportationDocument> documents;
 
-    @OneToMany(targetEntity = SequenceRoute.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_route")
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SequenceRoute> sequenceRoutes;
 }
