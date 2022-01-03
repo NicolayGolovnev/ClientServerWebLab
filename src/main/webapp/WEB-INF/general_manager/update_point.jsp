@@ -20,7 +20,7 @@
             <th align="left"><form:input path="id" readonly="true" id="id" cssStyle="background-color: #bbbaba"/></th>
         </tr>
         <tr>
-            <th align="right"><label>Требование к судну</label></th>
+            <th align="right"><label>Местоположение</label></th>
             <th align="left"><form:input type="text" path="pointLocation"/></th>
         </tr>
 
