@@ -39,7 +39,7 @@
       <td width="auto"><button type="button" onclick="location.href='/operator/${order.id}/payment_order'">Проверить оплату</button></td>
       <td width="auto"><button type="button" onclick="location.href='/operator/get_route_points/${order.documentNote.document.route.id}'">Посмотреть маршрут</button></td>
       <td width="auto"><button type="button" onclick="location.href='/operator/update_order/${order.id}'">Изменить</button></td>
-      <td width="auto"><button type="button" onclick="location.href='/manager/delete_order/${order.id}'">Удалить</button></td>
+      <td width="auto"><button type="button" onclick="location.href='/operator/delete_order/${order.id}'">Удалить</button></td>
     </tr>
   </c:forEach>
 </table>
