@@ -34,7 +34,7 @@
     </c:forEach>
 </table>
 <hr/>
-<button type="button" onclick="location.href='/manager/ship_list'">Список суден</button>
+<button type="button" onclick="location.href='/manager/ship_list'">Список судов</button>
 <button type="button" onclick="location.href='/manager/route_list'">Список маршрутов</button>
 <button type="button" onclick="location.href='/manager/create_transportation_document'">Создать новый документ</button>
 <button type="button" onclick="location.href='/'">Вернуться</button>
