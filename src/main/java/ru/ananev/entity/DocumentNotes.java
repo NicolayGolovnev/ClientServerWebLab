@@ -20,7 +20,7 @@ public class DocumentNotes {
     @Column(name = "unloading_mark")
     private Boolean unloadingMark;
 
-    @OneToOne(targetEntity = Order.class)
+    @OneToOne()
     @JoinColumn(name = "id_order")
     private Order order;
 
