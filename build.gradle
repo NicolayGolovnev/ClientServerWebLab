@@ -18,7 +18,7 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-security:2.5.2'
 //    implementation 'org.springframework.security:spring-security-taglibs:5.5.2'
 
-
+    implementation 'org.docx4j:docx4j:6.0.1'
     implementation 'org.postgresql:postgresql:42.2.23'
     //подключаем для отображения jsp-страниц, потому что автоматически со spring-boot-starter-web не идет
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:9.0.46'

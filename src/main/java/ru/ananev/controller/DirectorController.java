@@ -1,6 +1,10 @@
 package ru.ananev.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
+import org.docx4j.openpackaging.exceptions.InvalidFormatException;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +14,8 @@ import ru.ananev.entity.Ship;
 import ru.ananev.service.CompanyParkService;
 import ru.ananev.service.ShipService;
 
+import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -136,4 +142,25 @@ public class DirectorController {
         log.info("DELETE COMPLETED\tREDIRECTING TO MAIN PAGE");
         return new ModelAndView("redirect:/director/main_page");
     }
+
+    @GetMapping("/create_report")
+    public ModelAndView createReport() throws Docx4JException {
+        List<Ship> shipList = shipService.findAll();
+        WordprocessingMLPackage wordPackage = WordprocessingMLPackage.createPackage();
+        MainDocumentPart mainDocumentPart = wordPackage.getMainDocumentPart();
+        mainDocumentPart.addStyledParagraphOfText("Title", "Список судов компании");
+        for(int i = 0; i < shipList.size(); i++) {
+            Ship currShip = shipList.get(i);
+            String stringBuilder = "Судно №" + i + ":\n" +
+                    "Грузоподъемность: " + currShip.getLiftingCapacity() +
+                    "Проходимость: " + currShip.getPassability() +
+                    "Цена: " + currShip.getPrice() +
+                    "Состояние: " + currShip.getState();
+            mainDocumentPart.addParagraphOfText(stringBuilder);
+        }
+        File exportFile = new File("ship_report_" + new Date() + ".docx");
+        wordPackage.save(exportFile);
+        return new ModelAndView("redirect:/director/main_page");
+    }
+
 }

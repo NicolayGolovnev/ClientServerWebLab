@@ -33,6 +33,7 @@
 </table>
 <hr/>
 <button type="button" onclick="location.href='/manager/transportation_document/${documentId}/create_note'">Создать новую строчку в документе</button>
+<button type="button" onclick="location.href='/manager/transportation_document/${documentId}/create_report'">Создать отчет</button>
 <button type="button" onclick="location.href='/manager/main_page'">Вернуться</button>
 </body>
 </html>

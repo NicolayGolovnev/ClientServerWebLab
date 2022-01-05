@@ -38,7 +38,8 @@
     </c:forEach>
 </table>
 <hr/>
-<button type="button" onclick="location.href='/director/create_ship'">Добавить корабль в парк</button>
+<button type="button" onclick="location.href='/director/create_ship'">Добавить судно в парк</button>
+<button type="button" onclick="location.href='/director/create_report'">Создать отчет о судах</button>
 <button type="button" onclick="location.href='/'">Вернуться</button>
 </body>
 </html>
