@@ -50,7 +50,6 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     List<PaymentNote> paymentNotes = new ArrayList<>();
 
-    @OneToOne(targetEntity = DocumentNotes.class)
-    @JoinColumn(name = "id_order")
+    @OneToOne(mappedBy = "order")
     private DocumentNotes documentNote;
 }
