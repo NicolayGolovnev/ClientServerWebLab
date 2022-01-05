@@ -150,11 +150,11 @@ public class DirectorController {
         mainDocumentPart.addStyledParagraphOfText("Title", "Список судов компании");
         for(int i = 0; i < shipList.size(); i++) {
             Ship currShip = shipList.get(i);
-            mainDocumentPart.addParagraphOfText("Судно №" + (i + 1) +":");
-            mainDocumentPart.addParagraphOfText("Грузоподъемность: " + currShip.getLiftingCapacity());
-            mainDocumentPart.addParagraphOfText("Проходимость: " + currShip.getPassability());
-            mainDocumentPart.addParagraphOfText("Цена: " + currShip.getPrice());
-            mainDocumentPart.addParagraphOfText("Состояние: " + currShip.getState());
+            mainDocumentPart.addParagraphOfText("Судно №" + (i + 1) +":\n");
+            mainDocumentPart.addParagraphOfText("\tГрузоподъемность: " + currShip.getLiftingCapacity());
+            mainDocumentPart.addParagraphOfText("\tПроходимость: " + currShip.getPassability());
+            mainDocumentPart.addParagraphOfText("\tЦена: " + currShip.getPrice());
+            mainDocumentPart.addParagraphOfText("\tСостояние: " + currShip.getState());
             mainDocumentPart.addParagraphOfText(null);
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");

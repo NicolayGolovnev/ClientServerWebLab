@@ -1,12 +1,18 @@
 package ru.ananev.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.ananev.entity.*;
 import ru.ananev.service.*;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -209,6 +215,54 @@ public class ManagerController {
         List<SequenceRoute> sequenceRoutes = sequenceRouteService.findAllByRouteID(id);
         mv.addObject("sequenceList", sequenceRoutes);
         return mv;
+    }
+
+    @GetMapping("/transportation_document/{id}/create_report")
+    public ModelAndView createReport(@PathVariable Long id) throws Docx4JException {
+        TransportationDocument document = transportationDocumentService.findById(id);
+        WordprocessingMLPackage wordPackage = WordprocessingMLPackage.createPackage();
+        MainDocumentPart mainDocumentPart = wordPackage.getMainDocumentPart();
+
+        mainDocumentPart.addStyledParagraphOfText("Title", "Документ о перевозке №" + document.getDocNumber());
+
+        mainDocumentPart.addParagraphOfText("Судно:\n");
+        mainDocumentPart.addParagraphOfText("\tГрузоподъемность: " + document.getShip().getLiftingCapacity());
+        mainDocumentPart.addParagraphOfText("\tПроходимость: " + document.getShip().getPassability());
+        mainDocumentPart.addParagraphOfText("\tЦена: " + document.getShip().getPrice());
+        mainDocumentPart.addParagraphOfText("\tСостояние: " + document.getShip().getState());
+        mainDocumentPart.addParagraphOfText(null);
+
+        mainDocumentPart.addParagraphOfText("Маршрут следования:\n");
+        Route route = document.getRoute();
+        for (int i = 0; i < route.getSequenceRoutes().size(); i++) {
+            SequenceRoute sequenceRoute = route.getSequenceRoutes().get(i);
+            mainDocumentPart.addParagraphOfText("\tПункт: " + sequenceRoute.getPoint().getPointLocation() +
+                    " Время прибытия: " + sequenceRoute.getArrivalDate() +
+                    " Время отправки: " + sequenceRoute.getDispatchDate());
+        }
+
+        mainDocumentPart.addParagraphOfText("Строчки документа:\n");
+        List<DocumentNotes> notes = documentNotesService.findAllByDocumentID(id);
+        for(int i = 0; i < notes.size(); i++) {
+            DocumentNotes note = notes.get(i);
+            mainDocumentPart.addParagraphOfText((i + 1) + ": " +
+                    "Заказ: " + note.getOrder().getCargo());
+            mainDocumentPart.addParagraphOfText("\tДата отправки: " + note.getOrder().getDepartureDate());
+            mainDocumentPart.addParagraphOfText("\tПункт отправки: " + note.getOrder().getPointDeparture().getPointLocation());
+            mainDocumentPart.addParagraphOfText("\tДата прибытия: " + note.getOrder().getArrivalDate());
+            mainDocumentPart.addParagraphOfText("\tПункт прибытия: " + note.getOrder().getPointArrival().getPointLocation());
+            mainDocumentPart.addParagraphOfText("\tВес груза: " + note.getOrder().getCargoWeight());
+            mainDocumentPart.addParagraphOfText("\tСтоимость доставки: " + note.getOrder().getCostDelivery());
+            mainDocumentPart.addParagraphOfText(null);
+        }
+
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
+        String userHome = System.getProperty("user.home");
+        File exportFile = new File(userHome + "\\Downloads\\document_report_"
+                + simpleDateFormat.format(new Date()) + ".docx");
+        wordPackage.save(exportFile);
+        return new ModelAndView("redirect:/manager/transportation_document/" + id);
     }
 
 }
