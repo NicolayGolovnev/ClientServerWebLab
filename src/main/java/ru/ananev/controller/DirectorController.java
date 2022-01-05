@@ -2,11 +2,9 @@ package ru.ananev.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
-import org.docx4j.openpackaging.exceptions.InvalidFormatException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.ananev.entity.CompanyPark;
@@ -15,6 +13,7 @@ import ru.ananev.service.CompanyParkService;
 import ru.ananev.service.ShipService;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -151,14 +150,17 @@ public class DirectorController {
         mainDocumentPart.addStyledParagraphOfText("Title", "Список судов компании");
         for(int i = 0; i < shipList.size(); i++) {
             Ship currShip = shipList.get(i);
-            String stringBuilder = "Судно №" + i + ":\n" +
-                    "Грузоподъемность: " + currShip.getLiftingCapacity() +
-                    "Проходимость: " + currShip.getPassability() +
-                    "Цена: " + currShip.getPrice() +
-                    "Состояние: " + currShip.getState();
-            mainDocumentPart.addParagraphOfText(stringBuilder);
+            mainDocumentPart.addParagraphOfText("Судно №" + (i + 1) +":");
+            mainDocumentPart.addParagraphOfText("Грузоподъемность: " + currShip.getLiftingCapacity());
+            mainDocumentPart.addParagraphOfText("Проходимость: " + currShip.getPassability());
+            mainDocumentPart.addParagraphOfText("Цена: " + currShip.getPrice());
+            mainDocumentPart.addParagraphOfText("Состояние: " + currShip.getState());
+            mainDocumentPart.addParagraphOfText(null);
         }
-        File exportFile = new File("ship_report_" + new Date() + ".docx");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yy");
+        String userHome = System.getProperty("user.home");
+        File exportFile = new File(userHome + "\\Downloads\\ship_report_"
+                + simpleDateFormat.format(new Date()) + ".docx");
         wordPackage.save(exportFile);
         return new ModelAndView("redirect:/director/main_page");
     }

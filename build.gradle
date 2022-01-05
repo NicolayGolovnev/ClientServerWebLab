@@ -29,6 +29,11 @@ dependencies {
 
     testImplementation 'junit:junit:4.11'
     testImplementation('org.springframework.boot:spring-boot-starter-test:2.5.2')
+
+    configurations.all {
+        exclude group: "org.slf4j", module: "slf4j-log4j12"
+        exclude group: "log4j", module: "log4j"
+    }
 }
 
 test {
